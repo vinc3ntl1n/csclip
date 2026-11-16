@@ -1,0 +1,27 @@
+[project]
+name = "faceit-highlights"
+version = "0.1.0"
+description = "Automatically turn your FACEIT CS2 matches into highlight clips and full-POV videos."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "demoparser2>=0.42",
+    "requests>=2.31",
+    "zstandard>=0.22",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+faceit-highlights = "faceit_highlights.cli:main"
+
+[project.gui-scripts]
+faceit-highlights-app = "faceit_highlights.gui:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["faceit_highlights"]

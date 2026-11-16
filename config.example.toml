@@ -1,0 +1,62 @@
+# Copy this file to config.toml and fill in the FACEIT section.
+
+# How often `watch` checks FACEIT for new matches.
+poll_minutes = 10
+
+[faceit]
+# Data API key: free and instant. developers.faceit.com -> App Studio -> create app -> API Keys -> "Server side".
+# You can also set the FACEIT_API_KEY environment variable instead.
+api_key = ""
+# Your FACEIT nickname (case sensitive).
+nickname = ""
+# Downloads API token: lets the demos download by themselves. FACEIT reviews access requests
+# (https://fce.gg/downloads-api-application, about 30 days). Until you have one, each new match page
+# opens in your browser, you click "Watch demo", and the demo is picked up from inbox_dir.
+# You can also set FACEIT_DOWNLOAD_TOKEN.
+download_token = ""
+# Only needed without an api_key: your SteamID64, so it knows whose POV to clip.
+steam_id = ""
+# How many of your latest matches to look at each check.
+max_matches = 3
+# Without a download token, open each new match page so the demo is one click away ("Watch demo").
+open_room_in_browser = true
+
+[paths]
+work_dir = "data"       # unpacked demos and state.json
+output_dir = "videos"   # one folder per match
+# Folder your browser saves downloads to. Any .dem / .dem.gz / .dem.zst that shows up here gets processed.
+inbox_dir = "~/Downloads"
+keep_demos = true       # false deletes each demo (100-450 MB) once its videos are done
+
+[highlights]
+enabled = true
+min_kills = 3              # kills in one round that count as a highlight (3k, 4k, ace)
+clutches = true
+min_clutch_enemies = 2     # 2 = clip 1v2 and harder clutches you won
+# Single kills worth clipping on their own. Any of: "noscope", "wallbang", "smoke", "blind", "air"
+special_kills = []
+seconds_before = 3.0
+seconds_after = 2.0
+max_quiet_seconds = 8.0    # longer gaps between kills are cut out of the clip
+only_my_killfeed = true    # show only your kills in the kill feed, highlighted like in-game
+montage = true             # also join all clips into montage.mp4
+
+[full_pov]
+enabled = true
+# "alive": every round from the end of freeze time until you die (no buy time, no spectating).
+# "full":  the whole match as one unbroken recording.
+mode = "alive"
+
+[video]
+render = true          # false = only write highlights.json (works on macOS / without CS2)
+csdm_path = ""         # auto-detected, or the full path to CS Demo Manager's csdm.cmd
+ffmpeg_path = ""       # auto-detected (CSDM's own copy, then PATH); only used for the montage
+width = 1920
+height = 1080
+framerate = 60
+crf = 23               # quality: lower = better and bigger (18 looks lossless, 28 is small)
+video_codec = "libx264"
+record_audio = true
+player_voices = false  # include voice chat
+true_view = true       # record what you actually saw (client-side prediction)
+hide_hud = false       # true = hide the HUD except the kill feed
